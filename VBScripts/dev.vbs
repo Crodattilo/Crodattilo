@@ -1,0 +1,1 @@
+X=MsgBox("Sviluppato da Crodattilo. Vuoi visitare il mio sito web?",0+64,"Sviluppatore")

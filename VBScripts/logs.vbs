@@ -1,0 +1,1 @@
+X=MsgBox("Il registro delle azioni è sempre attivo.",0+32,"Registro") 

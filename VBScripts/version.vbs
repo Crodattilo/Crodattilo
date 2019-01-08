@@ -1,0 +1,1 @@
+X=MsgBox("Crodattilo, Alpha version (a1.0)",0+64,"Info sulla versione")

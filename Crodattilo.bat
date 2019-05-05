@@ -2,14 +2,13 @@
 :strt
 color F1
 title Crodattilo
-echo %date% %time% Crodattilo è stato eseguito>> "%logname%Crodattilo.log"
+echo %date% %time% Crodattilo Ã¨ stato eseguito>> "%logname%Crodattilo.log"
 
 :type_cmd
 title Crodattilo
 cls
 echo.
-echo Digita un comando: 
-set/p A=
+set/p "A=Digita un comando: "
 if %A% == help echo %date% %time% Utente ha chiesto aiuto>> "%logname%Crodattilo.log" && goto :help
 if %A% == h goto :help
 if %A% == dev goto :dev
@@ -22,7 +21,7 @@ if %A% == osk goto :keyboard
 if %A% == version goto :version
 if %A% == v goto :version
 if %A% == calculator goto :calculator
-if %A% == calc goto :calculator
+if %A% == calc goto :calc
 if %A% == power_off goto :power_off
 if %A% == shutdown goto :power_off
 if %A% == reboot goto :reboot
@@ -68,6 +67,7 @@ echo %date% %time% Utente ha digitato comando errato>> "%logname%Crodattilo.log"
 goto :help
 
 :help
+title Crodattilo - Aiuto
 cls
 echo Hai bisogno di aiuto? Ecco la lista di tutti i comandi:
 echo.
@@ -85,13 +85,14 @@ echo 11) NEW_FOLDER..................per creare una nuova cartella
 echo 12) TASK_MANAGER................per eseguire Gestione Attivita'
 echo 13) CONTROL_PANEL...............per eseguire il pannello di controllo
 echo 14) CMD.........................per eseguire il Prompt Dei Comandi di Windows
-echo 15) CALCULATOR..................per eseguire la calcolatrice
-echo 16) KEYBOARD....................per esegure la tastiera virtuale
-echo 17) OPEN_CD.....................per aprire il lettore CD
-echo 18) NEW_TEXT....................per creare un documento di testo in formato txt
-echo 19) TEXT_BIN....................per convertire un testo in codice binario
-echo 20) COLOR.......................per sciegliere i colori dell'interfaccia
-echo 21) CLOSE.......................per arrestare Crodattilo
+echo 15) CALCULATOR..................per eseguire la calcolatrice integrata
+echo 16) CALC........................per eseguire la calcolatrice di Windows
+echo 17) KEYBOARD....................per esegure la tastiera virtuale
+echo 18) OPEN_CD.....................per aprire il lettore CD
+echo 19) NEW_TEXT....................per creare un documento di testo in formato txt
+echo 20) TEXT_BIN....................per convertire un testo in codice binario
+echo 21) COLOR.......................per sciegliere i colori dell'interfaccia
+echo 22) CLOSE.......................per arrestare Crodattilo
 echo.
 pause>nul
 goto :type_cmd
@@ -107,6 +108,7 @@ echo %date% %time% Utente ha usato "version">> "%logname%Crodattilo.log"
 goto :type_cmd
 
 :dev
+title Crodattilo - Developer
 cls
 echo.
 VBScripts\dev.vbs
@@ -127,11 +129,58 @@ echo %date% %time% Utente ha usato "time">> "%logname%Crodattilo.log"
 pause>nul
 goto :type_cmd
 
-:calculator
+:calc
 cls
 echo.
 calc
 echo %date% %time% Utente ha usato "calc">> "%logname%Crodattilo.log"
+goto :type_cmd
+
+:calculator
+title Crodattilo - Calculator
+cls
+echo Premi enter ogni termine inserito.
+echo.
+echo Digita un' operazione semplice:
+echo.
+set/p n=
+set/p O=
+set/p m=
+if %O% == x goto :calc_x
+if %O% == : goto :calc_d
+if %O% == + goto :calc_p
+if %O% == - goto :calc_m
+if %O% == * goto :calc_x
+if %O% == / goto :calc_d
+if %O% == \ goto :calc_d
+:calc_e
+echo.
+echo Operazione non valida o incompleta.
+pause>nul
+goto :calculator
+:calc_x
+echo.
+set/a r= %n%*%m%
+echo %n%x%m%=%r%
+pause>nul
+goto :type_cmd
+:calc_d
+echo.
+set/a r= %n%/%m%
+echo %n%:%m%=%r%
+pause>nul
+goto :type_cmd
+:calc_p
+echo.
+set/a r= %n%+%m%
+echo %n%+%m%=%r%
+pause>nul
+goto :type_cmd
+:calc_m
+echo.
+set/a r= %n%-%m%
+echo %n%-%m%=%r%
+pause>nul
 goto :type_cmd
 
 :keyboard
@@ -217,8 +266,7 @@ goto :type_cmd
 :new_folder
 title Crodattilo - Nuovo
 cls
-echo Come vuoi chiamare la tua nuova cartella?
-set/p H=
+set/p "H=Come vuoi chiamare la tua nuova cartella? "
 mkdir C:\Users\Public\Documents\%H%
 cls
 echo La cartella e' stata creata con successo!
@@ -235,6 +283,7 @@ echo %date% %time% Utente ha usato "pc_info">> "%logname%Crodattilo.log"
 goto :type_cmd
 
 :open_cd
+title Crodattilo - Aprendo...
 cls
 echo.
 VBScripts\Open_CD.vbs
@@ -250,19 +299,19 @@ echo %date% %time% Utente ha usato "new_text">> "%logname%Crodattilo.log"
 goto :type_cmd
 
 :browser
+title Crodattilo - Links
 cls
+echo %date% %time% Utente ha usato "browser">> "%logname%Crodattilo.log"
 echo.
 echo Sciegli la versione del browser,
-echo NORMAL o GRAPHIC:
-echo %date% %time% Utente ha usato "browser">> "%logname%Crodattilo.log"
-set/p I=
+set/p "I=NORMAL o GRAPHIC: "
 if %I% == normal goto :b
 if %I% == graphic goto :b_gui
 if %I% == cmds goto :b_cmds
 :b_hlp
 cls
 echo Sciegli il browser NORMAL o quello GRAPHIC!
-echo Oppure digita CMDS per vedere i comandi.
+echo Oppure digita CMDS per imparare come usare Links.
 pause>nul
 goto :browser
 :b
@@ -297,6 +346,7 @@ notepad tasks\links\KEYS
 goto :browser
 
 :text_bin
+title Crodattilo - Text to Bin
 cls
 tasks\Text_Bin.exe
 echo %date% %time% Utente ha usato "text_bin">> "%logname%Crodattilo.log"
@@ -311,6 +361,7 @@ pause>nul
 exit
 
 :logs
+title Crodattilo - Registro
 cls
 echo.
 VBScripts\logs.vbs
@@ -321,11 +372,10 @@ goto :type_cmd
 title Crodattilo - Tema
 cls
 color EC
+echo %date% %time% Utente ha usato "color">> "%logname%Crodattilo.log"
 echo.
 echo Sciegli un tema,
-echo CHIARO o SCURO:
-echo %date% %time% Utente ha usato "color">> "%logname%Crodattilo.log"
-set/p B=
+set/p "B=CHIARO o SCURO: "
 if %B% == help goto :clr_hlp
 if %B% == chiaro goto :light_theme
 if %B% == scuro goto :dark_theme
